@@ -26,6 +26,11 @@ import java.util.Optional;
 public class JuegosController {
 
     @Autowired
+    PlataformasRepository plataformasRepository;
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
     JuegosRepository juegosRepository;
 
     @GetMapping("/lista")
@@ -49,18 +54,50 @@ public class JuegosController {
 
     @GetMapping( ... )
     public String nuevoJuegos(Model model, @ModelAttribute("juego") Juegos juego){
-               /** Completar */
+
+        model.addAttribute("listaPlataformas", plataformasRepository.findAll());
+        return "juegos/editarFrm";
+
+
     }
 
-    @GetMapping( ... )
+    @GetMapping("/editarJuegos")
     public String editarJuegos(@RequestParam("id") int id, Model model){
-                /** Completar */
+
+        Optional<User> optionalUser = userRepository.findById(id);
+
+        if (optionalUser.isPresent()) {
+            model.addAttribute("listaPlataformas", plataformasRepository.findAll());
+            return "juegos/editarFrm";
+        } else {
+            return "redirect:/juegos";
+        }
+
+
+
+
 
     }
 
-    @PostMapping( ... )
+    @PostMapping( "/guardarJuegos" )
     public String guardarJuegos(Model model, RedirectAttributes attr, @ModelAttribute("juego") @Valid Juegos juego, BindingResult bindingResult ){
-                /** Completar */
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("listaPlataformas", plataformasRepository.findAll());
+            return "juegos/editarFrm";
+        } else {
+
+            if (juego.getIdjuego() == 0) {
+                attr.addFlashAttribute("msg", "Juego creado exitosamente");
+            } else {
+                attr.addFlashAttribute("msg", "Juego actualizado exitosamente");
+            }
+            juegosRepository.save(juego);
+            return "redirect:/juegos";
+        }
+
+
+
 
     }
 
