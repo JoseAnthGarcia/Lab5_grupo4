@@ -28,15 +28,17 @@ public class UserController {
     UserRepository userRepository;
 
     @GetMapping("/signIn")
-    public String signIn(){
+    public String signIn() {
         return "/user/signIn";
     }
 
     @GetMapping("/signInRedirect")
-    public String signInRedirect(Authentication auth, HttpSession session){
+    public String signInRedirect(Authentication auth, HttpSession session) {
 
         User usuario = userRepository.findByCorreo(auth.getName());
         session.setAttribute("usuario", usuario);
+
+
         return "redirect:/juegos/lista";
 
     }

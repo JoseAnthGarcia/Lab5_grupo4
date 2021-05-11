@@ -11,7 +11,7 @@
             <h2 th:text="${juego.idjuego == 0? 'Nuevo Juego' : 'Editar Juego'}"></h2>
         </div>
         <div class="container-fluid">
-                <form method="POST" th:object="${juego}">
+                <form method="POST" th:object="${juego}" th:action="@{/juegos/guardar}">
                     <div class="form-group">
                         <label>Nombre</label>
                         <input type="text" class="form-control"
@@ -26,11 +26,16 @@
                     <div class="form-group">
                         <label for="plataforma.idplataforma">Plataforma</label>
                         <select class="form-control custom-select" id="plataforma.idplataforma" name="plataforma.idplataforma" >
-                          <option value="-1">- Seleccione -</option>
+                          <option value="-1" th:selected="juego.plataforma == null" >- Seleccione -</option>
                           <option th:each="plataforma : ${listaPlataformas}"
-                                  th:value="${plataforma.nombre}"
-                                  th:name="${plataforma.idplataforma}"
-                                  th:selected="${juego.plataforma.idplataforma == plataforma.idplataforma}">Wii</option>
+                                  th:value="${plataforma.idplataforma}"
+                                  th:name="${plataforma}" th:text="${plataforma.nombre}"
+                                  th:if="${juego.plataforma != null}"
+                                  th:selected="${juego.plataforma.idplataforma == plataforma.idplataforma}">Wii</option>}
+                            <option th:each="plataforma : ${listaPlataformas}"
+                                    th:value="${plataforma.idplataforma}"
+                                    th:name="${plataforma}" th:text="${plataforma.nombre}"
+                                    th:unless="${juego.plataforma != null}">Wii</option>
                         </select>
                         
                     </div>

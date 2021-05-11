@@ -18,6 +18,10 @@
             <ul class="navbar-nav">
                 <li class="nav-item active"  sec:authorize="hasAnyAuthority('ADMIN')">
                     <a class="nav-link"
+                       th:href="@{/juegos/lista}">Juegos</a>
+                </li>
+                <li class="nav-item active"  sec:authorize="hasAnyAuthority('USER')">
+                    <a class="nav-link"
                        th:href="@{/vista}">Juegos</a>
                 </li>
                 <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN')">
@@ -34,7 +38,7 @@
             <ul  class="navbar-nav" sec:authorize="isAuthenticated()">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-user"></i><span th:text="( ${usuario.getNombres()+' '+usuario.getApellidos()})" > (Enrique Larios)</span>
+                        <i class="fa fa-user"></i><span th:text="( ${session.usuario.getNombres()+' '+session.usuario.getApellidos()})" > (Enrique Larios)</span>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <div class="dropdown-divider"></div>
