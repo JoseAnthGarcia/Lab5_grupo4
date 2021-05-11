@@ -10,7 +10,10 @@ import java.util.List;
 @Repository
 
 public interface JuegosRepository extends JpaRepository<Juegos,Integer> {
-    @Query(value = "select * from juegors order by precio asc ",
+    @Query(value = "select j.idjuego as id ,j.image as image , j.nombre as nombre , j.descripcion as descripcion , p.nombre as plataforma, j.precio as precio\n" +
+            "from juegos j \n" +
+            "inner join plataformas p on j.idplataforma= p.idplataforma\n" +
+            "order by j.precio asc",
             nativeQuery = true)
     List<Juegos> listarJuegos();
 
