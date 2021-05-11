@@ -86,7 +86,7 @@ public class JuegosController {
                 attr.addFlashAttribute("msg", "Juego actualizado exitosamente");
             }
             juegosRepository.save(juego);
-            return "redirect:/product";
+            return "redirect:/juegos";
         }
 
 
