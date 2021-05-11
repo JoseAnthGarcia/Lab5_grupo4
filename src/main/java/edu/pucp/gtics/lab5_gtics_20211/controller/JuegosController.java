@@ -16,41 +16,88 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
 @Controller
-
+@RequestMapping("/juegos")
 public class JuegosController {
 
-    @Autowired JuegosRepository juegosRepository;
+    @Autowired
+    PlataformasRepository plataformasRepository;
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    JuegosRepository juegosRepository;
 
     @GetMapping("/lista")
     public String listaJuegos ( Model model ){
         model.addAttribute("listaJuegos", juegosRepository.listarJuegos());
-        return("juegos/lista");
+        return("/juegos/lista");
     }
 
     @GetMapping(value = {"", "/", "/vista"})
-    public String vistaJuegos ( ... ){
-               /** Completar */
+    public String vistaJuegos (Model model){
+        model.addAttribute("listaJuegos", juegosRepository.listaJuegosOrdenadosPorNombreDesc());
+        return "/juegos/vista";
+    }
+
+    @GetMapping("/juegosComprados")
+    public String juegoXusuario(HttpSession httpSession, Model model){
+        User usuario = (User) httpSession.getAttribute("usuario");
+        model.addAttribute("listaJuegosUsuario", juegosRepository.obtenerJuegosPorUser(usuario.getIdusuario()));
+        return "/juegos/comprado";
     }
 
     @GetMapping( ... )
     public String nuevoJuegos(Model model, @ModelAttribute("juego") Juegos juego){
-               /** Completar */
+
+        model.addAttribute("listaPlataformas", plataformasRepository.findAll());
+        return "juegos/editarFrm";
+
+
     }
 
-    @GetMapping( ... )
+    @GetMapping("/editarJuegos")
     public String editarJuegos(@RequestParam("id") int id, Model model){
-                /** Completar */
+
+        Optional<User> optionalUser = userRepository.findById(id);
+
+        if (optionalUser.isPresent()) {
+            model.addAttribute("listaPlataformas", plataformasRepository.findAll());
+            return "juegos/editarFrm";
+        } else {
+            return "redirect:/juegos";
+        }
+
+
+
+
 
     }
 
-    @PostMapping( ... )
+    @PostMapping( "/guardarJuegos" )
     public String guardarJuegos(Model model, RedirectAttributes attr, @ModelAttribute("juego") @Valid Juegos juego, BindingResult bindingResult ){
-                /** Completar */
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("listaPlataformas", plataformasRepository.findAll());
+            return "juegos/editarFrm";
+        } else {
+
+            if (juego.getIdjuego() == 0) {
+                attr.addFlashAttribute("msg", "Juego creado exitosamente");
+            } else {
+                attr.addFlashAttribute("msg", "Juego actualizado exitosamente");
+            }
+            juegosRepository.save(juego);
+            return "redirect:/juegos";
+        }
+
+
+
 
     }
 
