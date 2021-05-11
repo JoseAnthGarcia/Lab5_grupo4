@@ -52,30 +52,25 @@ public class JuegosController {
         return "/juegos/comprado";
     }
 
-    @GetMapping( ... )
+    @GetMapping("/nuevo")
     public String nuevoJuegos(Model model, @ModelAttribute("juego") Juegos juego){
-
         model.addAttribute("listaPlataformas", plataformasRepository.findAll());
         return "juegos/editarFrm";
-
 
     }
 
     @GetMapping("/editarJuegos")
     public String editarJuegos(@RequestParam("id") int id, Model model){
 
-        Optional<User> optionalUser = userRepository.findById(id);
+        Optional<Juegos> optionalJuegos = juegosRepository.findById(id);
 
-        if (optionalUser.isPresent()) {
+        if (optionalJuegos.isPresent()) {
+            model.addAttribute("juego", optionalJuegos.get());
             model.addAttribute("listaPlataformas", plataformasRepository.findAll());
             return "juegos/editarFrm";
         } else {
             return "redirect:/juegos";
         }
-
-
-
-
 
     }
 
@@ -95,9 +90,6 @@ public class JuegosController {
             juegosRepository.save(juego);
             return "redirect:/juegos";
         }
-
-
-
 
     }
 
