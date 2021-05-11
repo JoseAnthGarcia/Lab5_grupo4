@@ -24,10 +24,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/user/signInRedirect");
 
         http.authorizeRequests()
-                .antMatchers("/juegos","/juegos/**").authenticated()
+                .antMatchers("/juegos","/juegos/**").hasAuthority("ADMIN")
+                .antMatchers("/juegosComprados").hasAuthority("USER")
                 .anyRequest().permitAll();
 
-        http.logout().logoutSuccessUrl("/");
+        http.logout()
+                .logoutSuccessUrl("/")
+                .deleteCookies("JSESSIONID")
+                .invalidateHttpSession(true);
                
     }
 

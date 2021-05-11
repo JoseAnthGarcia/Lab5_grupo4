@@ -58,7 +58,7 @@ public class JuegosController {
 
     }
 
-    @GetMapping("/juegos/editarJuegos")
+    @GetMapping("/juegos/editar")
     public String editarJuegos(@RequestParam("id") int id, Model model){
 
         Optional<Juegos> optionalJuegos = juegosRepository.findById(id);
