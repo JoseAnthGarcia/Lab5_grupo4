@@ -17,8 +17,17 @@
                         Acceso Denegado
                     </div>
                     <form th:action="@{/processLogin}" method="post">
-                        <!--- Completar -->
-                        <!--- Completar -->
+
+                        <div class="mb-3">
+                            <label class="form-label">Usuario</label>
+                            <input type="email" class="form-control"  aria-describedby="emailHelp">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Contraseña</label>
+                            <input type="password" class="form-control" aria-describedby="emailHelp">
+                        </div>
+
                         <button type="submit" class="btn btn-primary btn-block">Ingresar</button>
                     </form>
                 </div>

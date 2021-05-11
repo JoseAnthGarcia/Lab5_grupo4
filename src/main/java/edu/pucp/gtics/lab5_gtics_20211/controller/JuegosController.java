@@ -21,9 +21,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-
+@RequestMapping("/juegos")
 public class JuegosController {
 
+    @Autowired
+    JuegosRepository juegosRepository;
 
 
     @GetMapping( ... )
@@ -32,8 +34,9 @@ public class JuegosController {
     }
 
     @GetMapping(value = {"", "/", "/vista"})
-    public String vistaJuegos ( ... ){
-               /** Completar */
+    public String vistaJuegos (Model model){
+        model.addAttribute("listaJuegos", juegosRepository.listaJuegosOrdenadosPorNombreDesc());
+        return "/juegos/vista";
     }
 
     @GetMapping( ... )

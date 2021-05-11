@@ -10,5 +10,7 @@ import java.util.List;
 @Repository
 
 public interface JuegosRepository extends JpaRepository<Juegos,Integer> {
-     /** Completar */
+
+    @Query(value = "select * from juegos order by nombre desc", nativeQuery = true)
+    List<Juegos> listaJuegosOrdenadosPorNombreDesc();
 }
