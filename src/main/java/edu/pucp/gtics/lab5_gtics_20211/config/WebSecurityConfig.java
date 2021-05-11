@@ -24,8 +24,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/user/signInRedirect");
 
         http.authorizeRequests()
-                .antMatchers("").authenticated()
-                .antMatchers("").authenticated()
+                .antMatchers("/juegos","/juegos/**").authenticated()
                 .anyRequest().permitAll();
 
         http.logout().logoutSuccessUrl("/");
@@ -37,9 +36,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-
-        /** Completar */
-
+        auth.jdbcAuthentication()
+                .dataSource(datasource)
+                .passwordEncoder(new BCryptPasswordEncoder())
+                .usersByUsernameQuery("select correo, password, enabled from usuario where correo = ?")
+                .authoritiesByUsernameQuery("SELECT correo, autorizacion where correo = ?");
     }
 
 }
