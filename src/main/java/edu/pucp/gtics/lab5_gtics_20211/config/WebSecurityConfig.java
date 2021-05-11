@@ -39,8 +39,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.jdbcAuthentication()
                 .dataSource(datasource)
                 .passwordEncoder(new BCryptPasswordEncoder())
-                .usersByUsernameQuery("select correo, password, enabled from usuario where correo = ?")
-                .authoritiesByUsernameQuery("SELECT correo, autorizacion where correo = ?");
+                .usersByUsernameQuery("select correo, password, enabled from usuarios where correo = ?")
+                .authoritiesByUsernameQuery("SELECT correo, autorizacion from usuarios where correo = ?");
     }
 
 }

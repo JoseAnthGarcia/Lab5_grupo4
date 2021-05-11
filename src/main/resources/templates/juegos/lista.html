@@ -33,10 +33,10 @@
                             <td ><img th:src="${juego.image}" width="80" class="rounded" /></td>
                             <td th:text="${juego.nombre}">Call of Duty : Black Ops II</td>
                             <td th:text="${juego.descripcion}">Es el segundo juego de la saga Call of Duty en presentar la futura tecnología de la guerra, y el primero en presentar historias de ramificación impulsados por elección del jugador, así como la selección de armas antes de comenzar las misiones del modo historia.</td>
-                            <td th:text="${juego.plataforma}">Xbox 360</td>
+                            <td th:text="${juego.plataforma.nombre}">Xbox 360</td>
                             <td th:text="${juego.precio}">70.0</td>
-                            <td ><a class="btn btn-primary" th:href="@{'/gameshop3/juegos/editar?id='+${juego.id}">Editar</a></td>
-                            <td><a class="btn btn-danger" href="/gameshop3/juegos/borrar?id=">Borrar</a></td>
+                            <td ><a class="btn btn-primary" th:href="@{'/juegos/editar?id='+${juego.idjuego}}">Editar</a></td>
+                            <td><a class="btn btn-danger" th:href="@{'/juegos/borrar?id='+${juego.idjuego}}">Borrar</a></td>
                         </tr>
 
 
