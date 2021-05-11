@@ -51,6 +51,7 @@ public class JuegosController {
         model.addAttribute("listaPlataformas", plataformasRepository.findAll());
         return "juegos/editarFrm";
 
+
     }
 
     @GetMapping("/editarJuegos")
