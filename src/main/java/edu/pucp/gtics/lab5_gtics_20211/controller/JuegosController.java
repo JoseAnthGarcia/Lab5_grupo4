@@ -27,10 +27,10 @@ public class JuegosController {
     @Autowired
     JuegosRepository juegosRepository;
 
-
-    @GetMapping( ... )
-    public String listaJuegos ( ... ){
-               /** Completar */
+    @GetMapping("/lista")
+    public String listaJuegos ( Model model ){
+        model.addAttribute("listaJuegos", juegosRepository.listarJuegos());
+        return("juegos/lista")
     }
 
     @GetMapping(value = {"", "/", "/vista"})
