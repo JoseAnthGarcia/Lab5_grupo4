@@ -31,7 +31,7 @@ public class JuegosController {
     @GetMapping("/lista")
     public String listaJuegos ( Model model ){
         model.addAttribute("listaJuegos", juegosRepository.listarJuegos());
-        return("juegos/lista");
+        return("/juegos/lista");
     }
 
     @GetMapping(value = {"", "/", "/vista"})
