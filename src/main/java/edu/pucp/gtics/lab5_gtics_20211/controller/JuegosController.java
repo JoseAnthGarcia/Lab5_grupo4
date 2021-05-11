@@ -22,7 +22,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/juegos")
 public class JuegosController {
 
     @Autowired
@@ -33,7 +32,7 @@ public class JuegosController {
     @Autowired
     JuegosRepository juegosRepository;
 
-    @GetMapping("/lista")
+    @GetMapping("/juegos/lista")
     public String listaJuegos ( Model model ){
         model.addAttribute("listaJuegos", juegosRepository.listarJuegos());
         return("/juegos/lista");
@@ -52,34 +51,29 @@ public class JuegosController {
         return "/juegos/comprado";
     }
 
-    @GetMapping( ... )
+    @GetMapping("/juegos/nuevo")
     public String nuevoJuegos(Model model, @ModelAttribute("juego") Juegos juego){
-
         model.addAttribute("listaPlataformas", plataformasRepository.findAll());
         return "juegos/editarFrm";
 
-
     }
 
-    @GetMapping("/editarJuegos")
+    @GetMapping("/juegos/editarJuegos")
     public String editarJuegos(@RequestParam("id") int id, Model model){
 
-        Optional<User> optionalUser = userRepository.findById(id);
+        Optional<Juegos> optionalJuegos = juegosRepository.findById(id);
 
-        if (optionalUser.isPresent()) {
+        if (optionalJuegos.isPresent()) {
+            model.addAttribute("juego", optionalJuegos.get());
             model.addAttribute("listaPlataformas", plataformasRepository.findAll());
             return "juegos/editarFrm";
         } else {
             return "redirect:/juegos";
         }
 
-
-
-
-
     }
 
-    @PostMapping( "/guardarJuegos" )
+    @PostMapping( "/juegos/guardarJuegos" )
     public String guardarJuegos(Model model, RedirectAttributes attr, @ModelAttribute("juego") @Valid Juegos juego, BindingResult bindingResult ){
 
         if (bindingResult.hasErrors()) {
@@ -95,9 +89,6 @@ public class JuegosController {
             juegosRepository.save(juego);
             return "redirect:/juegos";
         }
-
-
-
 
     }
 

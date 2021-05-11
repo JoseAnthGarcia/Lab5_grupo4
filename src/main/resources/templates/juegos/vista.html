@@ -14,18 +14,9 @@
                 </div>
                 <div class="container-fluid" >
                     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 card-app">
-                        <div class="col mb-4" th:each="juego, v : ${listaJuegos}">
+                        <div class="col mb-4" th:each="juego : ${listaJuegos}">
                             <div class="card" >
-                                <div th:switch="${v.index+1}">
-                                    <img th:case="1" class="card-img-top" src="https://s2.gaming-cdn.com/images/products/6238/orig/xenoblade-chronicles-definitive-edition-switch-cover.jpg" alt="Card image cap">
-                                    <img th:case="2" class="card-img-top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnkWD6WJC3KwfqIg3d7EQKPKxzatyX6gnKLw&amp;usqp=CAU" alt="Card image cap">
-                                    <img th:case="3" class="card-img-top" src="https://media.vandal.net/m/15505/20121217145531_1.jpg" alt="Card image cap">
-                                    <img th:case="4" class="card-img-top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRec6M4WbTPy03DFswDEaaYYMB46DU7IJ962Q&amp;usqp=CAU" alt="Card image cap">
-                                </div>
-
-                                <div th:if="${v.index+1>4}">
-                                    <img th:case="1" class="card-img-top" src="https://oechsle.vteximg.com.br/arquivos/ids/2648275-1000-1000/image-3b7ce458d3b74007bb6be908eb0cefd5.jpg?v=637494181556800000" >
-                                </div>
+                                <img th:src="${juego.image}" class="card-img-top" alt="Card image cap">
                                 <div class="card-body">
                                     <h5 class="card-title" th:text="${juego.nombre}">Xenoblade Chronicles: Definitive Edition</h5>
                                     <p class="card-text" th:text="${juego.descripcion}">Versión remasterizada llamada Xenoblade Chronicles: Definitive Edition para Nintendo Switch con fecha tentativa 2020. </p>
