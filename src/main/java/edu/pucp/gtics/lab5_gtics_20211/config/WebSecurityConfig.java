@@ -24,8 +24,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/user/signInRedirect");
 
         http.authorizeRequests()
-                .antMatchers("/juegos","/juegos/**").hasAuthority("ADMIN")
-                .antMatchers("/juegosComprados").hasAuthority("USER")
+                .antMatchers("/juegos","/juegos/**").authenticated()
                 .anyRequest().permitAll();
 
         http.logout()

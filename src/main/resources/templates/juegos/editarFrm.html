@@ -26,11 +26,16 @@
                     <div class="form-group">
                         <label for="plataforma.idplataforma">Plataforma</label>
                         <select class="form-control custom-select" id="plataforma.idplataforma" name="plataforma.idplataforma" >
-                          <option value="-1">- Seleccione -</option>
+                          <option value="-1" th:selected="juego.plataforma == null" >- Seleccione -</option>
                           <option th:each="plataforma : ${listaPlataformas}"
                                   th:value="${plataforma.idplataforma}"
                                   th:name="${plataforma}" th:text="${plataforma.nombre}"
-                                  th:selected="${juego.plataforma.idplataforma == plataforma.idplataforma}">Wii</option>
+                                  th:if="${juego.plataforma != null}"
+                                  th:selected="${juego.plataforma.idplataforma == plataforma.idplataforma}">Wii</option>}
+                            <option th:each="plataforma : ${listaPlataformas}"
+                                    th:value="${plataforma.idplataforma}"
+                                    th:name="${plataforma}" th:text="${plataforma.nombre}"
+                                    th:unless="${juego.plataforma != null}">Wii</option>
                         </select>
                         
                     </div>
