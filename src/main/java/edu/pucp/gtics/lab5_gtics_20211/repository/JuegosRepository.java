@@ -10,13 +10,15 @@ import java.util.List;
 @Repository
 
 public interface JuegosRepository extends JpaRepository<Juegos,Integer> {
+    @Query(value = "select * from juegors order by precio asc ",
+            nativeQuery = true)
+    List<Juegos> listarJuegos();
 
+     @Query(value = "select * from juegos order by nombre desc", nativeQuery = true)
+     List<Juegos> listaJuegosOrdenadosPorNombreDesc();
 
-
-     /** Completar */
-
-     @Query(value = "SELECT ju.image as image, ju.nombre as nombre, ju.descripcion as descripcion FROM juegosxusuario j, juegos ju\n" +
-             "WHERE j.idjuego = ju.idjuego AND j.idusuario = ?1;",
-             nativeQuery = true)
-     List<JuegosUserDto> obtenerJuegosPorUser(Integer idUsuario);
+    @Query(value = "SELECT ju.image as image, ju.nombre as nombre, ju.descripcion as descripcion FROM juegosxusuario j, juegos ju\n" +
+            "WHERE j.idjuego = ju.idjuego AND j.idusuario = ?1;",
+            nativeQuery = true)
+    List<JuegosUserDto> obtenerJuegosPorUser(Integer idUsuario);
 }
