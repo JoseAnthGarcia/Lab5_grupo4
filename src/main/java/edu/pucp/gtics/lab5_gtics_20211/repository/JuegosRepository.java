@@ -13,4 +13,9 @@ public interface JuegosRepository extends JpaRepository<Juegos,Integer> {
 
     @Query(value = "select * from juegos order by nombre desc", nativeQuery = true)
     List<Juegos> listaJuegosOrdenadosPorNombreDesc();
+
+    @Query(value = "SELECT ju.image as image, ju.nombre as nombre, ju.descripcion as descripcion FROM juegosxusuario j, juegos ju\n" +
+            "WHERE j.idjuego = ju.idjuego AND j.idusuario = ?1;",
+            nativeQuery = true)
+    List<JuegosUserDto> obtenerJuegosPorUser(Integer idUsuario);
 }
