@@ -24,8 +24,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/user/signInRedirect");
 
         http.authorizeRequests()
-                .antMatchers("").hasAnyAuthority("")
-                .antMatchers("").hasAuthority("")
+                .antMatchers("").authenticated()
+                .antMatchers("").authenticated()
                 .anyRequest().permitAll();
 
         http.logout().logoutSuccessUrl("/");

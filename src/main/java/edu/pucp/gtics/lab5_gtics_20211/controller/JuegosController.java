@@ -16,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
@@ -30,13 +31,20 @@ public class JuegosController {
     @GetMapping("/lista")
     public String listaJuegos ( Model model ){
         model.addAttribute("listaJuegos", juegosRepository.listarJuegos());
-        return("juegos/lista")
+        return("juegos/lista");
     }
 
     @GetMapping(value = {"", "/", "/vista"})
     public String vistaJuegos (Model model){
         model.addAttribute("listaJuegos", juegosRepository.listaJuegosOrdenadosPorNombreDesc());
         return "/juegos/vista";
+    }
+
+    @GetMapping("/juegosComprados")
+    public String juegoXusuario(HttpSession httpSession, Model model){
+        User usuario = (User) httpSession.getAttribute("usuario");
+        model.addAttribute("listaJuegosUsuario", juegosRepository.obtenerJuegosPorUser(usuario.getIdusuario()));
+        return "/juegos/comprado";
     }
 
     @GetMapping( ... )
