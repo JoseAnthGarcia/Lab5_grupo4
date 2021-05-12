@@ -78,8 +78,22 @@ public class JuegosController {
     @PostMapping( "/juegos/guardar" )
     public String guardarJuegos(Model model, RedirectAttributes attr, @ModelAttribute("juego") @Valid Juegos juego, BindingResult bindingResult ){
 
-        if (bindingResult.hasErrors()) {
+        Boolean errorPlat = false;
+        Boolean errorImag = false;
+        if(juego.getPlataforma().getIdplataforma()==-1){
+            errorPlat=true;
+        }
+        if(juego.getImage().equals("")){
+            errorImag=true;
+        }
+        if (bindingResult.hasErrors() || errorPlat || errorImag) {
             model.addAttribute("listaPlataformas", plataformasRepository.findAll());
+            if(errorPlat){
+                model.addAttribute("msg1", "Debe seleccionar una plataforma");
+            }
+            if (errorImag){
+                model.addAttribute("msg2","Debe adjuntar el url de una imagen");
+            }
             return "juegos/editarFrm";
         } else {
 
